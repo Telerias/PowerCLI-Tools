@@ -1,0 +1,7 @@
+# Port Group Details by Host
+# From http://blog.eeg3.net/2012/08/12/documenting-environment-settings-with-powercli/
+#
+Get-VMHost  | ForEach-Object -Process {
+  Tee-Object -InputObject $_ -Variable Temp | Get-VirtualPortGroup |
+  Select @{N="VMHost";E={$Temp.Name}},Name,VirtualSwitch,VirtualSwitchName,VLanId
+} | Export-Csv "PathHere”
