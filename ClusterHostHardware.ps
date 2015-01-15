@@ -1,0 +1,4 @@
+# Cluster and Host Hardware Overview
+# From http://blog.eeg3.net/2012/08/12/documenting-environment-settings-with-powercli/
+#
+Get-VMHost | Select Parent,Name,Manufacturer,Mode,Version,MemoryTotalMB,Model,NumCpu | Export-Csv “PathHere”
