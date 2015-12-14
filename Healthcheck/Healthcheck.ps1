@@ -76,6 +76,16 @@ $smtpServer = "mail.lab-local.net"
 $mailfrom = "VMware Healthcheck <powershell@lab-local.net>"
 $mailto = "gbrandt@lab-local.net"
 
+##   Pull Info from vCenter - Taken from http://rvdnieuwendijk.com/2011/11/19/how-to-use-the-vcenter-server-settings-from-powercli-to-send-e-mail/
+# $vCenterSettings = Get-View -Id 'OptionManager-VpxSettings'
+# $MailSender = ($vCenterSettings.Setting | Where-Object { $_.Key -eq "mail.sender"}).Value
+# $MailSmtpServer = ($vCenterSettings.Setting | Where-Object { $_.Key -eq "mail.smtp.server"}).Value
+#  
+# $Report = Get-VM | Sort-Object -Property Name | Out-String
+# Send-MailMessage -from $MailSender -to "you@yourdomain.com" -subject "Sending the vSphere report" -body $Report -smtpServer $MailSmtpServer
+#
+###
+
 #############################
 # Add Text to the HTML file #
 #############################
