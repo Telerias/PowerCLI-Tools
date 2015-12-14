@@ -51,7 +51,7 @@
 ####################################
 # VMware VirtualCenter server name #
 ####################################
-$vcserver="vcenter.arcade.koike.com"
+$vcserver="vcenter.lab-local.net"
 
 ##################
 # Add VI-toolkit #
@@ -72,45 +72,45 @@ $date=get-date
 # Mail variables #
 ##################
 $enablemail="no"
-$smtpServer = "mail.synchronet.net" 
-$mailfrom = "VMware Healthcheck <powershell@synchronet.net>"
-$mailto = "gbrandt@synchronet.net"
+$smtpServer = "mail.lab-local.net" 
+$mailfrom = "VMware Healthcheck <powershell@lab-local.net>"
+$mailto = "gbrandt@lab-local.net"
 
 #############################
 # Add Text to the HTML file #
 #############################
-ConvertTo-Html ñtitle "VMware Health Check " ñbody "<H1>VMware Health script</H1>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File $filelocation
-ConvertTo-Html ñtitle "VMware Health Check " ñbody "<H4>Date and time</H4>",$date -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
+ConvertTo-Html ‚Äìtitle "VMware Health Check " ‚Äìbody "<H1>VMware Health script</H1>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File $filelocation
+ConvertTo-Html ‚Äìtitle "VMware Health Check " ‚Äìbody "<H4>Date and time</H4>",$date -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
 
 #######################
 # VMware ESX hardware #
 #######################
-Get-VMHost | Get-View | ForEach-Object { $_.Summary.Hardware } | Select-object Vendor, Model, MemorySize, CpuModel, CpuMhz, NumCpuPkgs, NumCpuCores, NumCpuThreads, NumNics, NumHBAs | ConvertTo-Html ñtitle "VMware ESX server Hardware configuration" ñbody "<H2>VMware ESX server Hardware configuration.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
+Get-VMHost | Get-View | ForEach-Object { $_.Summary.Hardware } | Select-object Vendor, Model, MemorySize, CpuModel, CpuMhz, NumCpuPkgs, NumCpuCores, NumCpuThreads, NumNics, NumHBAs | ConvertTo-Html ‚Äìtitle "VMware ESX server Hardware configuration" ‚Äìbody "<H2>VMware ESX server Hardware configuration.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
 
 #######################
 # VMware ESX versions #
 #######################
-get-vmhost | % { $server = $_ |get-view; $server.Config.Product | select { $server.Name }, Version, Build, FullName }| ConvertTo-Html ñtitle "VMware ESX server versions" ñbody "<H2>VMware ESX server versions and builds.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
+get-vmhost | % { $server = $_ |get-view; $server.Config.Product | select { $server.Name }, Version, Build, FullName }| ConvertTo-Html ‚Äìtitle "VMware ESX server versions" ‚Äìbody "<H2>VMware ESX server versions and builds.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
 
 ######################
 # VMware VC version  #
 ######################
-$vcversion.content.about | select Version, Build, FullName | ConvertTo-Html ñtitle "VMware VirtualCenter version" ñbody "<H2>VMware VC version.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" |Out-File -Append $filelocation
+$vcversion.content.about | select Version, Build, FullName | ConvertTo-Html ‚Äìtitle "VMware VirtualCenter version" ‚Äìbody "<H2>VMware VC version.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" |Out-File -Append $filelocation
 
 #############
 # Snapshots # 
 #############
-$snap | select vm, name,created,description | ConvertTo-Html ñtitle "Snaphots active" ñbody "<H2>Snapshots active.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />"| Out-File -Append $filelocation
+$snap | select vm, name,created,description | ConvertTo-Html ‚Äìtitle "Snaphots active" ‚Äìbody "<H2>Snapshots active.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />"| Out-File -Append $filelocation
 
 #################################
 # VMware CDROM connected to VMs # 
 #################################
-Get-vm | where { $_ | get-cddrive | where { $_.ConnectionState.Connected -eq "true" } } | Select Name | ConvertTo-Html ñtitle "CDROMs connected" ñbody "<H2>CDROMs connected.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />"|Out-File -Append $filelocation
+Get-vm | where { $_ | get-cddrive | where { $_.ConnectionState.Connected -eq "true" } } | Select Name | ConvertTo-Html ‚Äìtitle "CDROMs connected" ‚Äìbody "<H2>CDROMs connected.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />"|Out-File -Append $filelocation
 
 #########################################
 # VMware floppy drives connected to VMs #
 #########################################
-Get-vm | where { $_ | get-floppydrive | where { $_.ConnectionState.Connected -eq "true" } } | select Name |ConvertTo-Html ñtitle "Floppy drives connected" ñbody "<H2>Floppy drives connected.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" |Out-File -Append $filelocation
+Get-vm | where { $_ | get-floppydrive | where { $_.ConnectionState.Connected -eq "true" } } | select Name |ConvertTo-Html ‚Äìtitle "Floppy drives connected" ‚Äìbody "<H2>Floppy drives connected.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" |Out-File -Append $filelocation
 
 #########################
 # Datastore information #
@@ -145,7 +145,7 @@ ForEach ($Datastore in $Datastores)
 	$myObj.PercFree = PercFree $Datastore
 	$myCol += $myObj
 }
-$myCol | Sort-Object PercFree | ConvertTo-Html ñtitle "Datastore space " ñbody "<H2>Datastore space available.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
+$myCol | Sort-Object PercFree | ConvertTo-Html ‚Äìtitle "Datastore space " ‚Äìbody "<H2>Datastore space available.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
 
 # Invoke-Item $filelocation
 
@@ -173,14 +173,14 @@ get-vm | % {
     $vms.CPUlimit = $vm.resourceconfig.cpuallocation.limit
     $Report += $vms
 }
-$Report | ConvertTo-Html ñtitle "Virtual Machine information" ñbody "<H2>Virtual Machine information.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
+$Report | ConvertTo-Html ‚Äìtitle "Virtual Machine information" ‚Äìbody "<H2>Virtual Machine information.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
 
 
 ###############################
 # VMware Timesync not enabled #
 ###############################
 
-Get-VM | Get-View | ? { $_.Config.Tools.syncTimeWithHost -eq $false } | Select Name | Sort-object Name | ConvertTo-Html ñtitle "VMware timesync not enabled" ñbody "<H2>VMware timesync not enabled.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
+Get-VM | Get-View | ? { $_.Config.Tools.syncTimeWithHost -eq $false } | Select Name | Sort-object Name | ConvertTo-Html ‚Äìtitle "VMware timesync not enabled" ‚Äìbody "<H2>VMware timesync not enabled.</H2>" -head "<link rel='stylesheet' href='style.css' type='text/css' />" | Out-File -Append $filelocation
 
 ######################
 # E-mail HTML output #
@@ -192,8 +192,8 @@ $att = new-object Net.Mail.Attachment($filelocation)
 $smtp = new-object Net.Mail.SmtpClient($smtpServer) 
 $msg.From = $mailfrom
 $msg.To.Add($mailto) 
-$msg.Subject = ìVMware Healthscriptî
-$msg.Body = ìVMware healthscriptî
+$msg.Subject = ‚ÄúVMware Healthscript‚Äù
+$msg.Body = ‚ÄúVMware healthscript‚Äù
 $msg.Attachments.Add($att) 
 $smtp.Send($msg)
 }
