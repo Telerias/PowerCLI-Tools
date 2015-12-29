@@ -72,8 +72,6 @@ $date=get-date
 # Mail variables #
 ##################
 $enablemail="no"
-$smtpServer = "mail.lab-local.net" 
-$mailfrom = "VMware Healthcheck <powershell@lab-local.net>"
 $mailto = "gbrandt@lab-local.net"
 
 ##   Pull Info from vCenter - Taken from http://rvdnieuwendijk.com/2011/11/19/how-to-use-the-vcenter-server-settings-from-powercli-to-send-e-mail/
@@ -85,6 +83,10 @@ $mailto = "gbrandt@lab-local.net"
 # Send-MailMessage -from $MailSender -to "you@yourdomain.com" -subject "Sending the vSphere report" -body $Report -smtpServer $MailSmtpServer
 #
 ###
+$vCenterSettings = Get-View -Id 'OptionManager-VpxSettings'
+$smtpServer = ($vCenterSettings.Setting | Where-Object { $_.Key -eq "mail.smtp.server"}).Value
+$mailfrom = ($vCenterSettings.Setting | Where-Object { $_.Key -eq "mail.sender"}).Value
+
 
 #############################
 # Add Text to the HTML file #
@@ -202,7 +204,7 @@ $att = new-object Net.Mail.Attachment($filelocation)
 $smtp = new-object Net.Mail.SmtpClient($smtpServer) 
 $msg.From = $mailfrom
 $msg.To.Add($mailto) 
-$msg.Subject = “VMware Healthscript”
+$msg.Subject = “VMware Healthscript for " + $vcserver
 $msg.Body = “VMware healthscript”
 $msg.Attachments.Add($att) 
 $smtp.Send($msg)
