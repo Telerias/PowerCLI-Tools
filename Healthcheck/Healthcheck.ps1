@@ -1,8 +1,8 @@
 ###########################################################################################
 # Title:	VMware health check 
 # Filename:	healtcheck.sp1       	
-# Created by:	Ivo Beerens ivo@ivobeerens.nl			
-# Date:		28-08-2008					
+# Created by:	Ivo Beerens ivo@ivobeerens.nl, modified by Gordon Brandt, gbrandt@feeorin.net			
+# Date:		28-08-2008, modifications ongoing					
 # Version       1.3						
 ###########################################################################################
 # Description:	Scripts that checks the status of a VMware      
