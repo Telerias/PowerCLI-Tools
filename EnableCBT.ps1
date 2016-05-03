@@ -4,6 +4,7 @@
 # See QueryChangedDiskAreas API returns incorrect sectors after extending virtual machine VMDK file with Changed Block 
 # Tracking (CBT) enabled (2090639). You can comment out the enable or disable commands in the script when appropriate for other uses
 
+# NOTE:  Script assumes you are connected to the vCenter Server.  Use Connect-VIServer prior to running script
 $vm="VM_Name"
 
 $vmtest = Get-vm $vm| get-view
